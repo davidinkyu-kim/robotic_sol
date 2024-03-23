@@ -20,7 +20,9 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'robotic_sol_node = robotic_sol.robotic_sol_node:main'
+            "sensor_node = robotic_sol.sensor:main",
+            "sensor_mgr_node = robotic_sol.sensor_mgr:main",
+            "sensor_client_node = robotic_sol.sensor_client:main"
         ],
     },
 )

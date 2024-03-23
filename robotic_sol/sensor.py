@@ -54,16 +54,14 @@ class Sensor(Thread):
             print('connection from', self.client_address)
             return True
 
-    def recive(self, buffer_size: int)->int:
+    def receive(self, buffer_size: int)->int:
         # Read a buffer size from the socket 
         recived_msg = self.connection.recv(buffer_size)
         msg = recived_msg.decode()
         if msg.isnumeric():
             return int(msg)
         else:
-            print("recived a not numeric msg")
-
-
+            print("received a not numeric msg")
 
     def set_overhead(self, _delay: float) -> None:
         self.overhead_delay = _delay
@@ -86,8 +84,8 @@ class Sensor(Thread):
                 try:
                     while True:
                         # Recive the request for the number of samples
-                        sample_length = self.recive(500)
-
+                        sample_length = self.receive(500)
+                        
                         # Let's pretend we are really collecting samples
                         time.sleep(int(sample_length)/self.sampling_rate + self.overhead_delay + random.randint(0, 100)/100000)
                         
