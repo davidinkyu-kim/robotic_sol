@@ -22,7 +22,7 @@ setup(
         'console_scripts': [
             "sensor_node = robotic_sol.sensor:main",
             "sensor_mgr_node = robotic_sol.sensor_mgr:main",
-            "sensor_client_node = robotic_sol.sensor_client:main"
+            "sensor_client_node = robotic_sol.sensor_client:main",
         ],
     },
 )

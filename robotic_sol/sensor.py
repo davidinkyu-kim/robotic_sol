@@ -41,7 +41,7 @@ class Sensor(Thread):
         self.sampling_rate = 0
         self.sensor_running = False
         self.connected = False
-        self.DOF = 6
+        self.DOF = 3
         self.sampling_rate = sampling_rate
         
 
@@ -104,14 +104,12 @@ def main(args=None):
     t1.daemon = True
 
     ## you can also launch a second sensor
-    # sensor2 = Sensor('127.0.0.1', 10000, 4000, 0.003) # Define a sensor with 4000Hz sampling rate and 3ms delay
-    # t2 = Thread(target = sensor2.run)    
-    # t2.daemon = True
-
-
+    sensor2 = Sensor('127.0.0.1', 10000, 4000, 0.003) # Define a sensor with 4000Hz sampling rate and 3ms delay
+    t2 = Thread(target = sensor2.run)    
+    t2.daemon = True
 
     t1.start()
-    # t2.start()
+    t2.start()
     
     while True:
         pass

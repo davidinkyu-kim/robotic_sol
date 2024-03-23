@@ -46,9 +46,9 @@ class SensorMgr(Node):
     def read_sensor_cb(self, request, response):
         self.get_logger().info('Incoming request: sensor %d' % (request.sensor_num)) 
         
-        response.sensor_values[0] = 0.0
-        response.sensor_values[1] = 1.0
-        response.sensor_values[2] = 2.0
+        response.sensor_value[0] = 0.0
+        response.sensor_value[1] = 1.0
+        response.sensor_value[2] = 2.0
 
         return response
 
