@@ -111,8 +111,13 @@ def main(args=None):
     t1.start()
     t2.start()
     
-    while True:
-        pass
+    try:
+        while True:
+            pass
+    except KeyboardInterrupt:
+        print("Closing sensor node")
+        sensor1.sock.close()
+        sensor2.sock.close()
     
 if __name__ == "__main__":
     main()

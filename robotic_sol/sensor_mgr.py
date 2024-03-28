@@ -50,7 +50,7 @@ class SensorMgr(Node):
             
             # Create a service per sensor
             sensor.read_srv_ = self.create_service(ReadSensor, self.package_name+'/'+sensor.name+'/srv/read_sensor', partial(self.read_sensor_cb, arg=sensor.name) )
-            self.get_logger().info("Created a service for %s" % sensor.name)
+            self.get_logger().info("Created a read service for %s" % sensor.name)
 
     def timer_cb(self, arg):        
         self.get_logger().debug(f"Wall timer rang from sensor: {arg}") 
