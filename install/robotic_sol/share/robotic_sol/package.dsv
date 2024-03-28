@@ -1,0 +1,3 @@
+source;share/robotic_sol/hook/pythonpath.ps1
+source;share/robotic_sol/hook/pythonpath.dsv
+source;share/robotic_sol/hook/pythonpath.sh

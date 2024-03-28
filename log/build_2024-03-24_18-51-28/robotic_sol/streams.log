@@ -1,0 +1,50 @@
+[0.747s] Invoking command in '/home/davkim/machina_ws/src/robotic_sol': PYTHONPATH=/home/davkim/machina_ws/src/robotic_sol/build/robotic_sol/prefix_override:/home/davkim/machina_ws/src/robotic_sol/install/robotic_sol/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base build/robotic_sol build --build-base /home/davkim/machina_ws/src/robotic_sol/build/robotic_sol/build install --record /home/davkim/machina_ws/src/robotic_sol/build/robotic_sol/install.log --single-version-externally-managed install_data
+[1.012s] running egg_info
+[1.013s] creating build/robotic_sol/robotic_sol.egg-info
+[1.013s] writing build/robotic_sol/robotic_sol.egg-info/PKG-INFO
+[1.014s] writing dependency_links to build/robotic_sol/robotic_sol.egg-info/dependency_links.txt
+[1.014s] writing entry points to build/robotic_sol/robotic_sol.egg-info/entry_points.txt
+[1.014s] writing requirements to build/robotic_sol/robotic_sol.egg-info/requires.txt
+[1.014s] writing top-level names to build/robotic_sol/robotic_sol.egg-info/top_level.txt
+[1.014s] writing manifest file 'build/robotic_sol/robotic_sol.egg-info/SOURCES.txt'
+[1.016s] reading manifest file 'build/robotic_sol/robotic_sol.egg-info/SOURCES.txt'
+[1.017s] writing manifest file 'build/robotic_sol/robotic_sol.egg-info/SOURCES.txt'
+[1.017s] running build
+[1.017s] running build_py
+[1.017s] creating /home/davkim/machina_ws/src/robotic_sol/build/robotic_sol/build
+[1.018s] creating /home/davkim/machina_ws/src/robotic_sol/build/robotic_sol/build/lib
+[1.018s] creating /home/davkim/machina_ws/src/robotic_sol/build/robotic_sol/build/lib/robotic_sol
+[1.018s] copying robotic_sol/sensor_client.py -> /home/davkim/machina_ws/src/robotic_sol/build/robotic_sol/build/lib/robotic_sol
+[1.018s] copying robotic_sol/sensor.py -> /home/davkim/machina_ws/src/robotic_sol/build/robotic_sol/build/lib/robotic_sol
+[1.018s] copying robotic_sol/sensor_mgr.py -> /home/davkim/machina_ws/src/robotic_sol/build/robotic_sol/build/lib/robotic_sol
+[1.018s] copying robotic_sol/__init__.py -> /home/davkim/machina_ws/src/robotic_sol/build/robotic_sol/build/lib/robotic_sol
+[1.018s] copying robotic_sol/example.py -> /home/davkim/machina_ws/src/robotic_sol/build/robotic_sol/build/lib/robotic_sol
+[1.019s] running install
+[1.019s] running install_lib
+[1.020s] creating /home/davkim/machina_ws/src/robotic_sol/install/robotic_sol/lib/python3.10/site-packages/robotic_sol
+[1.020s] copying /home/davkim/machina_ws/src/robotic_sol/build/robotic_sol/build/lib/robotic_sol/sensor_client.py -> /home/davkim/machina_ws/src/robotic_sol/install/robotic_sol/lib/python3.10/site-packages/robotic_sol
+[1.020s] copying /home/davkim/machina_ws/src/robotic_sol/build/robotic_sol/build/lib/robotic_sol/sensor.py -> /home/davkim/machina_ws/src/robotic_sol/install/robotic_sol/lib/python3.10/site-packages/robotic_sol
+[1.021s] copying /home/davkim/machina_ws/src/robotic_sol/build/robotic_sol/build/lib/robotic_sol/sensor_mgr.py -> /home/davkim/machina_ws/src/robotic_sol/install/robotic_sol/lib/python3.10/site-packages/robotic_sol
+[1.021s] copying /home/davkim/machina_ws/src/robotic_sol/build/robotic_sol/build/lib/robotic_sol/__init__.py -> /home/davkim/machina_ws/src/robotic_sol/install/robotic_sol/lib/python3.10/site-packages/robotic_sol
+[1.021s] copying /home/davkim/machina_ws/src/robotic_sol/build/robotic_sol/build/lib/robotic_sol/example.py -> /home/davkim/machina_ws/src/robotic_sol/install/robotic_sol/lib/python3.10/site-packages/robotic_sol
+[1.021s] byte-compiling /home/davkim/machina_ws/src/robotic_sol/install/robotic_sol/lib/python3.10/site-packages/robotic_sol/sensor_client.py to sensor_client.cpython-310.pyc
+[1.022s] byte-compiling /home/davkim/machina_ws/src/robotic_sol/install/robotic_sol/lib/python3.10/site-packages/robotic_sol/sensor.py to sensor.cpython-310.pyc
+[1.023s] byte-compiling /home/davkim/machina_ws/src/robotic_sol/install/robotic_sol/lib/python3.10/site-packages/robotic_sol/sensor_mgr.py to sensor_mgr.cpython-310.pyc
+[1.023s] byte-compiling /home/davkim/machina_ws/src/robotic_sol/install/robotic_sol/lib/python3.10/site-packages/robotic_sol/__init__.py to __init__.cpython-310.pyc
+[1.023s] byte-compiling /home/davkim/machina_ws/src/robotic_sol/install/robotic_sol/lib/python3.10/site-packages/robotic_sol/example.py to example.cpython-310.pyc
+[1.023s] running install_data
+[1.024s] creating /home/davkim/machina_ws/src/robotic_sol/install/robotic_sol/share
+[1.024s] creating /home/davkim/machina_ws/src/robotic_sol/install/robotic_sol/share/ament_index
+[1.024s] creating /home/davkim/machina_ws/src/robotic_sol/install/robotic_sol/share/ament_index/resource_index
+[1.024s] creating /home/davkim/machina_ws/src/robotic_sol/install/robotic_sol/share/ament_index/resource_index/packages
+[1.024s] copying resource/robotic_sol -> /home/davkim/machina_ws/src/robotic_sol/install/robotic_sol/share/ament_index/resource_index/packages
+[1.024s] creating /home/davkim/machina_ws/src/robotic_sol/install/robotic_sol/share/robotic_sol
+[1.024s] copying package.xml -> /home/davkim/machina_ws/src/robotic_sol/install/robotic_sol/share/robotic_sol
+[1.024s] running install_egg_info
+[1.027s] Copying build/robotic_sol/robotic_sol.egg-info to /home/davkim/machina_ws/src/robotic_sol/install/robotic_sol/lib/python3.10/site-packages/robotic_sol-0.0.0-py3.10.egg-info
+[1.027s] running install_scripts
+[1.048s] Installing sensor_client_node script to /home/davkim/machina_ws/src/robotic_sol/install/robotic_sol/lib/robotic_sol
+[1.049s] Installing sensor_mgr_node script to /home/davkim/machina_ws/src/robotic_sol/install/robotic_sol/lib/robotic_sol
+[1.049s] Installing sensor_node script to /home/davkim/machina_ws/src/robotic_sol/install/robotic_sol/lib/robotic_sol
+[1.049s] writing list of installed files to '/home/davkim/machina_ws/src/robotic_sol/build/robotic_sol/install.log'
+[1.074s] Invoked command in '/home/davkim/machina_ws/src/robotic_sol' returned '0': PYTHONPATH=/home/davkim/machina_ws/src/robotic_sol/build/robotic_sol/prefix_override:/home/davkim/machina_ws/src/robotic_sol/install/robotic_sol/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base build/robotic_sol build --build-base /home/davkim/machina_ws/src/robotic_sol/build/robotic_sol/build install --record /home/davkim/machina_ws/src/robotic_sol/build/robotic_sol/install.log --single-version-externally-managed install_data

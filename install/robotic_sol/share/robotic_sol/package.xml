@@ -7,8 +7,7 @@
   <maintainer email="davkim@todo.todo">davkim</maintainer>
   <license>Apache-2.0</license>
 
-  <build_depend>robotic_sol_interfaces</build_depend>
-  <exec_depend>robotic_sol_interfaces</exec_depend>
+  <exec_depend>robotic_sol_interfaces<exec_depend>
   
   <test_depend>ament_copyright</test_depend>
   <test_depend>ament_flake8</test_depend>

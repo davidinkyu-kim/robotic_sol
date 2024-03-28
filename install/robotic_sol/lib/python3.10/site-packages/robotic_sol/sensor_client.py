@@ -16,22 +16,23 @@ class SensorClient(Node):
 
     def __init__(self):
         super().__init__('sensor_client_node')
-        self.package_name = 'robotic_sol'
-
-        timer_cb_group = ReentrantCallbackGroup()        
+        
+        cb_group = ReentrantCallbackGroup()
+        # client_cb_group = ReentrantCallbackGroup()
+        # timer_cb_group = MutuallyExclusiveCallbackGroup()
 
         # self.sensor_sample_rate = 500
         self.sensor_publish_rate = 500
 
         # Create a wall timer
-        self.process_timer_ = self.create_timer(1/self.sensor_publish_rate, self.sensor_read_timer_cb, callback_group=timer_cb_group)
+        self.sensor_read_timer_ = self.create_timer(1/self.sensor_publish_rate, self.sensor_read_timer_cb, callback_group=cb_group)
 
         # Create a publisher
-        self.sensor_pub_ = self.create_publisher(SensorsOutput, self.package_name+'/msg/sensors_output', 10)
+        self.sensor_pub_ = self.create_publisher(SensorsOutput, '/msg/sensors_output', 10)
 
         # Create a service client
         # self.read_sensor_srv_cli_ = self.create_client(ReadSensor, 'srv/read_sensor', callback_group=client_cb_group)
-        self.read_sensor_srv_cli_ = self.create_client(ReadSensor, self.package_name+'/srv/read_sensor', callback_group = timer_cb_group)
+        self.read_sensor_srv_cli_ = self.create_client(ReadSensor, 'srv/read_sensor', callback_group = cb_group)
         while not self.read_sensor_srv_cli_.wait_for_service(timeout_sec=1.0):
             self.get_logger().info('Service not available, waiting again')
 
@@ -39,14 +40,14 @@ class SensorClient(Node):
         self.data = [0,0,0]        
 
     def sensor_read_timer_cb(self):        
-        self.get_logger().debug("Wall timer rang from timer callback")        
+        self.get_logger().info("Wall timer rang from timer callback")        
         
         # Invoke service call if did not
         if not self.did_run:
             self.did_run = True        
             req = ReadSensor.Request()
             req.sensor_num = 0
-            self.get_logger().info('Sending request to sensor %d' % (req.sensor_num))
+            self.get_logger().info('Sending request')
             self.future = self.read_sensor_srv_cli_.call_async(req)
             
         if self.future.done():
@@ -67,7 +68,7 @@ class SensorClient(Node):
         output_msg.sensors.append(sensor_msg)
 
         self.sensor_pub_.publish(output_msg)
-        self.get_logger().debug("Published the data")
+        self.get_logger().info("Publishing the data")
         
         # result = self.future.Result()
         # print("Result",result.sensor_value[0])
