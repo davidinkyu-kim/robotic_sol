@@ -23,7 +23,11 @@ class SensorClient(Node):
 
     def __init__(self):
         super().__init__('sensor_client_node')
-        self.package_name = 'robotic_sol'
+        
+        node_name = str(self.get_name)                
+        start_idx = node_name.find('of <') + 4
+        end_idx = node_name.find(".", start_idx)
+        self.package_name = node_name[start_idx:end_idx]
 
         self.sensors = [
             SensorClass("sensor1"),

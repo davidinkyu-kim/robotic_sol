@@ -33,8 +33,12 @@ class SensorMgr(Node):
 
     def __init__(self):
         super().__init__('sensor_mgr_node')
-        self.package_name = 'robotic_sol'
-        
+               
+        node_name = str(self.get_name)                
+        start_idx = node_name.find('of <') + 4
+        end_idx = node_name.find(".", start_idx)
+        self.package_name = node_name[start_idx:end_idx]
+                        
         self.expected_broadcast_rate = 500 # Estimation of client broadcasting rate
         
         # Declare a list of sensors to service
