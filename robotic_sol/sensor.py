@@ -12,6 +12,7 @@ from tokenize import Double
 import numpy as np
 from threading import Thread, Timer
 import time
+import signal
 
 class Sensor(Thread):  
     
@@ -41,7 +42,7 @@ class Sensor(Thread):
         self.sampling_rate = 0
         self.sensor_running = False
         self.connected = False
-        self.DOF = 6
+        self.DOF = 3
         self.sampling_rate = sampling_rate
         
 
@@ -54,16 +55,14 @@ class Sensor(Thread):
             print('connection from', self.client_address)
             return True
 
-    def recive(self, buffer_size: int)->int:
+    def receive(self, buffer_size: int)->int:
         # Read a buffer size from the socket 
         recived_msg = self.connection.recv(buffer_size)
         msg = recived_msg.decode()
         if msg.isnumeric():
             return int(msg)
         else:
-            print("recived a not numeric msg")
-
-
+            print("received a not numeric msg")
 
     def set_overhead(self, _delay: float) -> None:
         self.overhead_delay = _delay
@@ -86,8 +85,8 @@ class Sensor(Thread):
                 try:
                     while True:
                         # Recive the request for the number of samples
-                        sample_length = self.recive(500)
-
+                        sample_length = self.receive(500)
+                        
                         # Let's pretend we are really collecting samples
                         time.sleep(int(sample_length)/self.sampling_rate + self.overhead_delay + random.randint(0, 100)/100000)
                         
@@ -97,26 +96,35 @@ class Sensor(Thread):
                 finally:
                     # Clean up the connection
                     self.connection.close()
-                    
+
+def sigint_handler(signum, frame):
+    raise KeyboardInterrupt
 
 def main(args=None):
     
+    signal.signal(signal.SIGINT, sigint_handler)
+
     sensor1 = Sensor('127.0.0.3', 10000, 2000, 0.001) # Define a sensor with 2000Hz sampling rate and 1ms delay
     t1 = Thread(target = sensor1.run)
     t1.daemon = True
 
     ## you can also launch a second sensor
-    # sensor2 = Sensor('127.0.0.1', 10000, 4000, 0.003) # Define a sensor with 4000Hz sampling rate and 3ms delay
-    # t2 = Thread(target = sensor2.run)    
-    # t2.daemon = True
-
-
+    sensor2 = Sensor('127.0.0.1', 10000, 4000, 0.003) # Define a sensor with 4000Hz sampling rate and 3ms delay
+    t2 = Thread(target = sensor2.run)    
+    t2.daemon = True
 
     t1.start()
-    # t2.start()
+    t2.start()
     
-    while True:
-        pass
+    try:
+        while True:
+            pass
+    except KeyboardInterrupt:
+        print("Keyboard Interrupt!")
+    finally:
+        print("Closing sensor node")
+        sensor1.sock.close()
+        sensor2.sock.close()
     
 if __name__ == "__main__":
     main()
