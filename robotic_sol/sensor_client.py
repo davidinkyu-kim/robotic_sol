@@ -9,9 +9,6 @@ from rclpy.node import Node
 from rclpy.executors import MultiThreadedExecutor
 from rclpy.callback_groups import MutuallyExclusiveCallbackGroup, ReentrantCallbackGroup
 
-# requesting 10 samples on each call
-number_of_samples = 10
-
 class SensorClass():
     def __init__(self, name):
         print(f"Initializing sensor: {name}")        
@@ -36,7 +33,7 @@ class SensorClient(Node):
 
         timer_cb_group = ReentrantCallbackGroup()        
         
-        self.sensor_publish_rate = 500
+        self.sensor_publish_rate = 500  # given number from requirement
 
         # Create a wall timer
         self.process_timer_ = self.create_timer(1/self.sensor_publish_rate, self.process_timer_cb, callback_group=timer_cb_group)
@@ -51,6 +48,7 @@ class SensorClient(Node):
                 self.get_logger().info('Service not available, waiting again')
             self.get_logger().info(f"Connected to the {sensor.name} read sensor service")
             
+            # Initialize
             sensor.did_request = False
             sensor.data = np.empty(len(ReadSensor.Response().sensor_value))
 
@@ -59,10 +57,10 @@ class SensorClient(Node):
         
         output_msg = SensorsOutput()
 
-        self.all_sensors_available = True
+        self.all_sensors_available = True   # flag to check liveness of data 
 
         for sensor in self.sensors:
-            # Invoke a service call if did not
+            # Invoke a service call if did not request before
             if not sensor.did_request:
                 sensor.did_request = True        
                 req = ReadSensor.Request()                

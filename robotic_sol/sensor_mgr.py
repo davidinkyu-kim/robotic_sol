@@ -49,12 +49,12 @@ class SensorMgr(Node):
 
         for sensor in self.sensors:            
             # Create a timer per sensor
-            sensor.timer_cb_group = ReentrantCallbackGroup()            
+            sensor.timer_cb_group = MutuallyExclusiveCallbackGroup()            
             sensor.timer = self.create_timer(1/sensor.sample_rate, partial(self.timer_cb, arg=sensor.name), callback_group=sensor.timer_cb_group)
             self.get_logger().info(f"Created a timer for {sensor.name} at rate {sensor.sample_rate}hz")
             
             # Create a service per sensor
-            sensor.read_srv_ = self.create_service(ReadSensor, self.package_name+'/'+sensor.name+'/srv/read_sensor', partial(self.read_sensor_cb, arg=sensor.name) )
+            sensor.read_sensor_srv_ = self.create_service(ReadSensor, self.package_name+'/'+sensor.name+'/srv/read_sensor', partial(self.read_sensor_cb, arg=sensor.name) )
             self.get_logger().info("Created a read service for %s" % sensor.name)
 
     def timer_cb(self, arg):        
@@ -67,9 +67,9 @@ class SensorMgr(Node):
                 sensor.sock.sendall(sensor.request_message)
 
                 byte_data = sensor.sock.recv(10000)                
-                sensor.buffered_data = np.frombuffer(byte_data)
+                sensor.buffered_data = np.frombuffer(byte_data)      # dump all data into buffer
                 # Apply a filter(e.g. moving_average) if needed
-                sensor.latest_data = sensor.buffered_data[-3:]            
+                sensor.latest_data = sensor.buffered_data[-3:]       # picks up the latest      
 
     def read_sensor_cb(self, request, response, arg):
         self.get_logger().debug(f"Incoming service request for sensor: {arg}") 
