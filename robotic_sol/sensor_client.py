@@ -16,7 +16,8 @@ class SensorClass():
     def __init__(self, name):
         print(f"Initializing sensor: {name}")        
         self.name = name
-        self.sensor_msg = Sensor3dof()        
+        self.sensor_msg = Sensor3dof()
+        self.data_available = False     # Flag for at least one data point heard from the sensor        
 
 class SensorClient(Node):
 
@@ -54,13 +55,15 @@ class SensorClient(Node):
         
         output_msg = SensorsOutput()
 
+        self.all_sensors_available = True
+
         for sensor in self.sensors:
             # Invoke a service call if did not
             if not sensor.did_request:
                 sensor.did_request = True        
                 req = ReadSensor.Request()                
                 self.get_logger().debug(f"Sending request to {sensor.name}")
-                sensor.future = sensor.read_sensor_srv_cli_.call_async(req)
+                sensor.future = sensor.read_sensor_srv_cli_.call_async(req) # Async call to retrieve result later when available
                 
             # Read in if service call received response
             else:
@@ -68,18 +71,24 @@ class SensorClient(Node):
                 if sensor.future.done():
                     result = sensor.future.result()
                     self.get_logger().debug('Received response %f %f %f' % (result.sensor_value[0], result.sensor_value[1], result.sensor_value[2]))                    
-                    sensor.data = result.sensor_value                    
-                    sensor.did_request = False
+                    sensor.data = result.sensor_value
 
-            # Populate latest data into message
-            sensor.sensor_msg.sensor_value = sensor.data
+                    sensor.data_available = True                     
+                    sensor.did_request = False # Reset flag to request data again
 
-            # Populate the topic
-            output_msg.sensors.append(sensor.sensor_msg)
+            self.all_sensors_available = self.all_sensors_available and sensor.data_available
+
+            if self.all_sensors_available:
+                # Populate latest data into message
+                sensor.sensor_msg.sensor_value = sensor.data
+
+                # Populate the topic
+                output_msg.sensors.append(sensor.sensor_msg)
 
         # Publish the latest sensor msgs
-        self.sensor_pub_.publish(output_msg)
-        self.get_logger().debug("Published the data")
+        if self.all_sensors_available:
+            self.sensor_pub_.publish(output_msg)
+            self.get_logger().debug("Published the data")
 
 def main(args=None):
     print('Starting sensor client')

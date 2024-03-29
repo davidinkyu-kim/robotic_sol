@@ -12,6 +12,7 @@ from tokenize import Double
 import numpy as np
 from threading import Thread, Timer
 import time
+import signal
 
 class Sensor(Thread):  
     
@@ -95,10 +96,14 @@ class Sensor(Thread):
                 finally:
                     # Clean up the connection
                     self.connection.close()
-                    
+
+def sigint_handler(signum, frame):
+    raise KeyboardInterrupt
 
 def main(args=None):
     
+    signal.signal(signal.SIGINT, sigint_handler)
+
     sensor1 = Sensor('127.0.0.3', 10000, 2000, 0.001) # Define a sensor with 2000Hz sampling rate and 1ms delay
     t1 = Thread(target = sensor1.run)
     t1.daemon = True
@@ -115,6 +120,8 @@ def main(args=None):
         while True:
             pass
     except KeyboardInterrupt:
+        print("Keyboard Interrupt!")
+    finally:
         print("Closing sensor node")
         sensor1.sock.close()
         sensor2.sock.close()
